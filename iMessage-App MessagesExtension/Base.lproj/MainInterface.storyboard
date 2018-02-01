@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iFM-Vf-Vdf">
-                                <rect key="frame" x="16" y="249" width="288" height="30"/>
+                                <rect key="frame" x="16" y="150" width="288" height="53"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="BOTAO"/>
                                 <connections>
@@ -35,11 +35,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X47-rx-isc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="515" y="139"/>
+            <point key="canvasLocation" x="513.60000000000002" y="138.53073463268368"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="ZLQ-V4-iqG">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MOC-5m-40l" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="extended" id="lW0-9p-pY4" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" restorationIdentifier="extended" id="5Ea-gV-E9o">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -49,7 +50,6 @@
                     </view>
                     <size key="freeformSize" width="375" height="667"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="MOC-5m-40l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1314" y="201"/>
         </scene>

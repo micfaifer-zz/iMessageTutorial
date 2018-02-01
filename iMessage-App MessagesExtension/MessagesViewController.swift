@@ -11,13 +11,20 @@ import Messages
 
 class MessagesViewController: MSMessagesAppViewController {
     //MARK: - Attributes
+    var session: MSSession?
+    
     var conversation: MSConversation?
     var compactStoryboardIdentifier = "compact"
     var extendedStoryboardIdentifier = "extended"
     
     //MARK: - Outlet
     @IBAction func botao(_ sender: Any) {
-        let message = MSMessage()
+        if session == nil {
+            session = MSSession()
+        }
+        
+        let message = MSMessage(session: session!)
+        
         let layout = MSMessageTemplateLayout()
         
         layout.caption = "silvao"
@@ -40,6 +47,10 @@ class MessagesViewController: MSMessagesAppViewController {
     
     override func willBecomeActive(with conversation: MSConversation) {
         self.conversation = conversation
+        
+        if let selected = conversation.selectedMessage {
+            session = selected.session
+        }
     }
     
     override func didResignActive(with conversation: MSConversation) {
