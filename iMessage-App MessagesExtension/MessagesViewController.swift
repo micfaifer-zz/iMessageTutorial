@@ -10,9 +10,24 @@ import UIKit
 import Messages
 
 class MessagesViewController: MSMessagesAppViewController {
+    //MARK: - Attributes
+    var conversation: MSConversation?
+    var compactStoryboardIdentifier = "compact"
+    var extendedStoryboardIdentifier = "extended"
+    
+    //MARK: - Outlet
+    @IBAction func botao(_ sender: Any) {
+        let message = MSMessage()
+        let layout = MSMessageTemplateLayout()
+        
+        layout.caption = "silvao"
+        message.layout = layout
+        conversation?.insert(message, completionHandler: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view.
     }
     
@@ -24,10 +39,7 @@ class MessagesViewController: MSMessagesAppViewController {
     // MARK: - Conversation Handling
     
     override func willBecomeActive(with conversation: MSConversation) {
-        // Called when the extension is about to move from the inactive to active state.
-        // This will happen when the extension is about to present UI.
-        
-        // Use this method to configure the extension and restore previously stored state.
+        self.conversation = conversation
     }
     
     override func didResignActive(with conversation: MSConversation) {
@@ -58,9 +70,45 @@ class MessagesViewController: MSMessagesAppViewController {
     }
     
     override func willTransition(to presentationStyle: MSMessagesAppPresentationStyle) {
-        // Called before the extension transitions to a new presentation style.
+        guard let thisConversation = self.conversation else {
+            return
+        }
+        
+        presentViewController(conversation: thisConversation, presentationStyle: presentationStyle);
+    }
     
-        // Use this method to prepare for the change in presentation style.
+    func presentViewController(conversation: MSConversation, presentationStyle: MSMessagesAppPresentationStyle){
+        var vc: UIViewController
+        
+        if presentationStyle == .compact {
+            vc = instantiateCompactViewController()
+        } else {
+            vc = instantiateExpandedViewController()
+        }
+        
+        addChildViewController(vc)
+        
+        // ...constraints and view setup...
+        
+        view.addSubview(vc.view)
+        vc.didMove(toParentViewController: self)
+    }
+    
+    func instantiateCompactViewController() -> UIViewController{
+        guard let compactViewController = storyboard?.instantiateViewController(withIdentifier: compactStoryboardIdentifier) else {
+            fatalError("Can't instantiate CompactViewController")
+        }
+        
+        return compactViewController
+    }
+    
+    func instantiateExpandedViewController() -> UIViewController {
+        
+        guard let compactViewController = storyboard?.instantiateViewController(withIdentifier: extendedStoryboardIdentifier) else {
+            fatalError("Can't instantiate CompactViewController")
+        }
+        
+        return compactViewController
     }
     
     override func didTransition(to presentationStyle: MSMessagesAppPresentationStyle) {
