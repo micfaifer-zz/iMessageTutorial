@@ -19,17 +19,7 @@ class MessagesViewController: MSMessagesAppViewController {
     
     //MARK: - Outlet
     @IBAction func botao(_ sender: Any) {
-        if session == nil {
-            session = MSSession()
-        }
-        
-        let message = MSMessage(session: session!)
-        
-        let layout = MSMessageTemplateLayout()
-        
-        layout.caption = "silvao"
-        message.layout = layout
-        conversation?.insert(message, completionHandler: nil)
+        requestPresentationStyle(.expanded)
     }
     
     override func viewDidLoad() {
@@ -89,20 +79,28 @@ class MessagesViewController: MSMessagesAppViewController {
     }
     
     func presentViewController(conversation: MSConversation, presentationStyle: MSMessagesAppPresentationStyle){
-        var vc: UIViewController
+        var controller: UIViewController
         
         if presentationStyle == .compact {
-            vc = instantiateCompactViewController()
+            controller = instantiateCompactViewController()
         } else {
-            vc = instantiateExpandedViewController()
+            controller = instantiateExpandedViewController()
         }
         
-        addChildViewController(vc)
+        addChildViewController(controller)
         
-        // ...constraints and view setup...
+        view.addSubview(controller.view)
         
-        view.addSubview(vc.view)
-        vc.didMove(toParentViewController: self)
+        controller.view.frame = view.bounds
+        controller.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(controller.view)
+        
+        controller.view.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        controller.view.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        controller.view.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        controller.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        controller.didMove(toParentViewController: self)
     }
     
     func instantiateCompactViewController() -> UIViewController{
