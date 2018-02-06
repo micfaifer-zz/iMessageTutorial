@@ -11,6 +11,7 @@ import UIKit
 
 class GameSKScene: SKScene {
     var previousPoint = CGPoint(x: 0, y: 100)
+    var currentDirection = ""
     var isTouchingX = false
     var isTouchingY = false
     
@@ -58,10 +59,12 @@ class GameSKScene: SKScene {
                 return
             } else if previousPoint.x < recognizer.translation(in: self.view).x {
                 print("dir")
-                self.drawLine(to: "x")
+                self.currentDirection = "right"
+                self.drawLine(to: self.currentDirection)
             } else {
-                //TODO: - Desenhar a linha para a ESQUERDA
                 print("esq")
+                self.currentDirection = "left"
+                self.drawLine(to: self.currentDirection)
             }
         case .ended:
             OperationQueue.main.cancelAllOperations()
@@ -72,29 +75,35 @@ class GameSKScene: SKScene {
         }
     }
     
-    func drawLine(to axis: String, ){
+    
+    
+    func drawLine(to direction: String){
         let path = UIBezierPath()
         path.move(to: previousPoint)
-        if axis == "x"{
+        if direction == "right"{
             path.addLine(to: CGPoint(x: previousPoint.x+30, y: previousPoint.y))
-        } else if axis == "y" {
+        } else if direction == "left" {
+            path.addLine(to: CGPoint(x: previousPoint.x-30, y: previousPoint.y))
+        } else if direction == "up" {
             path.addLine(to: CGPoint(x: previousPoint.x, y: previousPoint.y+30))
+        } else if direction == "down" {
+            path.addLine(to: CGPoint(x: previousPoint.x, y: previousPoint.y-30))
         }
         let layer = CAShapeLayer()
         layer.strokeColor = UIColor.black.cgColor
         layer.lineWidth = 2
         layer.path = path.cgPath
-        self.view.layer.addSublayer(layer)
+        self.view?.layer.addSublayer(layer)
         previousPoint.x += 30
     }
     
     override func update(_ currentTime: TimeInterval) {
         //Desenhar infinitamente a linha
         if isTouchingX {
-            self.drawLine()
+            self.drawLine(to: self.currentDirection)
         }
         if isTouchingY {
-            
+            self.drawLine(to: self.currentDirection)
         }
     }
 }
