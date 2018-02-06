@@ -37,18 +37,15 @@ class DrawViewController: UIViewController {
             if (abs(began.x - recognizer.translation(in: self.view).x) <= 30) {
                 return
             } else if began.x < recognizer.translation(in: self.view).x {
-                print("dir")
                 self.currentDirection = "right"
                 //START TIMER
                 self.startTimerX()
             } else {
-                print("esq")
                 self.currentDirection = "left"
                 //START TIMER
                 self.startTimerX()
             }
         case .ended:
-            print("parooooou")
             self.stopTimerX()
             recognizer.setTranslation(CGPoint.zero, in: self.view)
         default:
@@ -64,13 +61,11 @@ class DrawViewController: UIViewController {
             guard let began = beganPoint else { return }
             if (abs(began.y - recognizer.translation(in: self.view).y) <= 30) {
                 return
-            } else if began.y > recognizer.translation(in: self.view).y {
-                print("up")
+            } else if began.y < recognizer.translation(in: self.view).y {
                 self.currentDirection = "up"
                 //START TIMER
                 self.startTimerY()
             } else {
-                print("down")
                 self.currentDirection = "down"
                 //START TIMER
                 self.startTimerY()
@@ -88,11 +83,11 @@ class DrawViewController: UIViewController {
         let path = UIBezierPath()
         path.move(to: previousPoint)
         if currentDirection == "right"{
-            path.addLine(to: CGPoint(x: previousPoint.x+2, y: previousPoint.y))
-            previousPoint.x += 2
+            path.addLine(to: CGPoint(x: previousPoint.x+5, y: previousPoint.y))
+            previousPoint.x += 5
         } else if currentDirection == "left" {
-            path.addLine(to: CGPoint(x: previousPoint.x-2, y: previousPoint.y))
-            previousPoint.x -= 2
+            path.addLine(to: CGPoint(x: previousPoint.x-5, y: previousPoint.y))
+            previousPoint.x -= 5
         }
         let layer = CAShapeLayer()
         layer.strokeColor = UIColor.black.cgColor
@@ -101,6 +96,7 @@ class DrawViewController: UIViewController {
         DispatchQueue.main.async {
             self.view.layer.addSublayer(layer)
         }
+        print(previousPoint)
     }
     
     @objc
@@ -108,26 +104,27 @@ class DrawViewController: UIViewController {
         let path = UIBezierPath()
         path.move(to: previousPoint)
         if currentDirection == "up"{
-            path.addLine(to: CGPoint(x: previousPoint.x, y: previousPoint.y+2))
-            previousPoint.y += 2
+            path.addLine(to: CGPoint(x: previousPoint.x, y: previousPoint.y+5))
+            previousPoint.y += 5
         } else if currentDirection == "down" {
-            path.addLine(to: CGPoint(x: previousPoint.x, y: previousPoint.y-2))
-            previousPoint.y -= 2
+            path.addLine(to: CGPoint(x: previousPoint.x, y: previousPoint.y-5))
+            previousPoint.y -= 5
         }
         let layer = CAShapeLayer()
         layer.strokeColor = UIColor.black.cgColor
         layer.lineWidth = 2
         layer.path = path.cgPath
-        self.view.layer.addSublayer(layer)
+        DispatchQueue.main.async {
+            self.view.layer.addSublayer(layer)
+        }
+        print(previousPoint)
     }
     
     //MARK: - Timer
     func startTimerX(){
         if self.timerX == nil {
-//            self.timerX = Timer(timeInterval: 0.05, target: self, selector: #selector(DrawViewController.drawXLine), userInfo: nil, repeats: true)
-            self.timerX = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(DrawViewController.drawXLine), userInfo: nil, repeats: true)
+            self.timerX = Timer.scheduledTimer(timeInterval: 0.014, target: self, selector: #selector(DrawViewController.drawXLine), userInfo: nil, repeats: true)
             self.timerX?.fire()
-            
         }
     }
     
@@ -138,7 +135,7 @@ class DrawViewController: UIViewController {
     
     func startTimerY(){
         if self.timerY == nil {
-            self.timerY = Timer(timeInterval: 0.05, target: self, selector: #selector(DrawViewController.drawYLine), userInfo: nil, repeats: true)
+            self.timerY = Timer.scheduledTimer(timeInterval: 0.014, target: self, selector: #selector(DrawViewController.drawYLine), userInfo: nil, repeats: true)
             self.timerY?.fire()
         }
     }
