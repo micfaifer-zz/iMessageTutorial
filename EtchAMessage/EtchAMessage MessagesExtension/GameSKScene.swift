@@ -75,8 +75,6 @@ class GameSKScene: SKScene {
         }
     }
     
-    
-    
     func drawLine(to direction: String){
         let path = UIBezierPath()
         path.move(to: previousPoint)
@@ -89,11 +87,12 @@ class GameSKScene: SKScene {
         } else if direction == "down" {
             path.addLine(to: CGPoint(x: previousPoint.x, y: previousPoint.y-30))
         }
-        let layer = CAShapeLayer()
-        layer.strokeColor = UIColor.black.cgColor
-        layer.lineWidth = 2
-        layer.path = path.cgPath
-        self.view?.layer.addSublayer(layer)
+        
+        let shapeNode = SKShapeNode(path: path.cgPath)
+        shapeNode.fillColor = UIColor.white
+        shapeNode.lineWidth = 2
+        
+        self.addChild(shapeNode)
         previousPoint.x += 30
     }
     
