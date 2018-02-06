@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EtchAMessage MessagesExtension/DrawViewController.swift"
-            timestampString = "539575269.150357"
+            filePath = "EtchAMessage MessagesExtension/GameSKScene.swift"
+            timestampString = "539646786.0181921"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "handlePanX(recognizer:)"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "drawLine(to:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EtchAMessage MessagesExtension/DrawViewController.swift"
-            timestampString = "539575269.150493"
+            timestampString = "539646786.018315"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "handlePanX(recognizer:)"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
+            landmarkName = "drawYLine()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EtchAMessage MessagesExtension/DrawViewController.swift"
-            timestampString = "539575269.150609"
+            timestampString = "539646786.018844"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
             landmarkName = "handlePanX(recognizer:)"
             landmarkType = "7">
          </BreakpointContent>

@@ -10,10 +10,12 @@ import UIKit
 
 class DrawViewController: UIViewController {
     
-    var firstTranslationX: CGPoint?
-    var firstTranslationY: CGPoint?
-    var previousPath: CGPoint = CGPoint(x: 0, y: 100)
-    var isTouching = true
+    var previousPoint = CGPoint(x: 0, y: 100)
+    var currentDirection = ""
+    var beganPoint: CGPoint?
+    
+    var timerX: Timer?
+    var timerY: Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,74 +31,120 @@ class DrawViewController: UIViewController {
     @IBAction func handlePanX(recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
         case .began:
-            firstTranslationX = recognizer.translation(in: self.view)
+            beganPoint = recognizer.translation(in: self.view)
         case .changed:
-            guard let first = firstTranslationX else { return }
-            if (abs(first.x - recognizer.translation(in: self.view).x) <= 30) {
+            guard let began = beganPoint else { return }
+            if (abs(began.x - recognizer.translation(in: self.view).x) <= 30) {
                 return
-            } else if first.x < recognizer.translation(in: self.view).x {
+            } else if began.x < recognizer.translation(in: self.view).x {
                 print("dir")
-                OperationQueue.main.addOperation({
-                    self.drawLine()
-                })
-                
+                self.currentDirection = "right"
+                //START TIMER
+                self.startTimerX()
             } else {
-                //TODO: - Desenhar a linha para a ESQUERDA
                 print("esq")
+                self.currentDirection = "left"
+                //START TIMER
+                self.startTimerX()
             }
         case .ended:
-            OperationQueue.main.cancelAllOperations()
-            isTouching = false
-//           x previousPath.x = previousPath.x+recognizer.translation(in: self.view).x
+            print("parooooou")
+            self.stopTimerX()
             recognizer.setTranslation(CGPoint.zero, in: self.view)
         default:
-            print("ta aqui?")
             return
         }
-        print("oi")
-    }
-    
-    func drawLine(){
-        
-        repeat {
-            if self.isTouching {
-                print("teste")
-                let path = UIBezierPath()
-                path.move(to: previousPath)
-                path.addLine(to: CGPoint(x: previousPath.x+30, y: previousPath.y))
-                let layer = CAShapeLayer()
-                layer.strokeColor = UIColor.black.cgColor
-                layer.lineWidth = 2
-                layer.path = path.cgPath
-                self.view.layer.addSublayer(layer)
-                
-                previousPath.x += 30
-            } else {
-                return
-            }
-        } while self.isTouching
-        
     }
 
     @IBAction func handlePanY(recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
         case .began:
-            firstTranslationY = recognizer.translation(in: self.view)
+            beganPoint = recognizer.translation(in: self.view)
         case .changed:
-            guard let first = firstTranslationY else { return }
-            if (abs(first.y - recognizer.translation(in: self.view).y) <= 30) {
+            guard let began = beganPoint else { return }
+            if (abs(began.y - recognizer.translation(in: self.view).y) <= 30) {
                 return
-            } else if first.y > recognizer.translation(in: self.view).y {
-                print("cim")
-                //TODO: - Desenhar a linha para CIMA
+            } else if began.y > recognizer.translation(in: self.view).y {
+                print("up")
+                self.currentDirection = "up"
+                //START TIMER
+                self.startTimerY()
             } else {
-                //TODO: - Desenhar a linha para BAIXO
-                print("baix")
+                print("down")
+                self.currentDirection = "down"
+                //START TIMER
+                self.startTimerY()
             }
         case .ended:
+            self.stopTimerY()
             recognizer.setTranslation(CGPoint.zero, in: self.view)
         default:
             return
         }
+    }
+    
+    @objc
+    func drawXLine(){
+        let path = UIBezierPath()
+        path.move(to: previousPoint)
+        if currentDirection == "right"{
+            path.addLine(to: CGPoint(x: previousPoint.x+2, y: previousPoint.y))
+            previousPoint.x += 2
+        } else if currentDirection == "left" {
+            path.addLine(to: CGPoint(x: previousPoint.x-2, y: previousPoint.y))
+            previousPoint.x -= 2
+        }
+        let layer = CAShapeLayer()
+        layer.strokeColor = UIColor.black.cgColor
+        layer.lineWidth = 2
+        layer.path = path.cgPath
+        DispatchQueue.main.async {
+            self.view.layer.addSublayer(layer)
+        }
+    }
+    
+    @objc
+    func drawYLine(){
+        let path = UIBezierPath()
+        path.move(to: previousPoint)
+        if currentDirection == "up"{
+            path.addLine(to: CGPoint(x: previousPoint.x, y: previousPoint.y+2))
+            previousPoint.y += 2
+        } else if currentDirection == "down" {
+            path.addLine(to: CGPoint(x: previousPoint.x, y: previousPoint.y-2))
+            previousPoint.y -= 2
+        }
+        let layer = CAShapeLayer()
+        layer.strokeColor = UIColor.black.cgColor
+        layer.lineWidth = 2
+        layer.path = path.cgPath
+        self.view.layer.addSublayer(layer)
+    }
+    
+    //MARK: - Timer
+    func startTimerX(){
+        if self.timerX == nil {
+//            self.timerX = Timer(timeInterval: 0.05, target: self, selector: #selector(DrawViewController.drawXLine), userInfo: nil, repeats: true)
+            self.timerX = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(DrawViewController.drawXLine), userInfo: nil, repeats: true)
+            self.timerX?.fire()
+            
+        }
+    }
+    
+    func stopTimerX(){
+        self.timerX?.invalidate()
+        self.timerX = nil
+    }
+    
+    func startTimerY(){
+        if self.timerY == nil {
+            self.timerY = Timer(timeInterval: 0.05, target: self, selector: #selector(DrawViewController.drawYLine), userInfo: nil, repeats: true)
+            self.timerY?.fire()
+        }
+    }
+    
+    func stopTimerY(){
+        self.timerY?.invalidate()
+        self.timerY = nil
     }
 }

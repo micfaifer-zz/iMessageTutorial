@@ -17,18 +17,18 @@ class GameSKScene: SKScene {
     
     //MARK: - Scene Initialization
     override func didMove(to view: SKView) {
-        let leftNode = SKSpriteNode(color: .red, size: self.size)
+        let leftNode = SKSpriteNode(color: .red, size: CGSize(width: (self.view?.frame.size.width)!/2, height: self.size.height/2))
 //            SKSpriteNode(texture: SKTexture(imageNamed: "castelo-2"), color: .white, size: self.size)
         leftNode.position = self.position
-        leftNode.zPosition = -4
+//        leftNode.zPosition = -4
         leftNode.name = "XButton"
         self.addChild(leftNode)
         
-        let rightNode = SKSpriteNode(color: .blue, size: self.size)
+        let rightNode = SKSpriteNode(color: .blue, size: CGSize(width: self.size.width/2, height: self.size.height/2))
         let positionX = self.position.x + self.size.width
         let positionY = self.position.y
         rightNode.position = CGPoint(x: positionX, y: positionY)
-        rightNode.zPosition = -4
+//        rightNode.zPosition = -4
         rightNode.name = "YButton"
         self.addChild(rightNode)
         
@@ -42,9 +42,9 @@ class GameSKScene: SKScene {
         for children in scene.children {
             if let name = children.name {
                 if name.contains("XButton") {
-                    
+                    self.handlePanX(recognizer: recognizer)
                 } else if name.contains("YButton") {
-                    
+                    self.handlePanY(recognizer: recognizer)
                 }
             }
         }
@@ -53,6 +53,7 @@ class GameSKScene: SKScene {
     func handlePanX(recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
         case .began:
+            isTouchingX = true
             previousPoint.x = recognizer.translation(in: self.view).x
         case .changed:
             if (abs(previousPoint.x - recognizer.translation(in: self.view).x) <= 30) {
@@ -67,8 +68,32 @@ class GameSKScene: SKScene {
                 self.drawLine(to: self.currentDirection)
             }
         case .ended:
-            OperationQueue.main.cancelAllOperations()
             isTouchingX = false
+            recognizer.setTranslation(CGPoint.zero, in: self.view)
+        default:
+            return
+        }
+    }
+    
+    func handlePanY(recognizer: UIPanGestureRecognizer) {
+        switch recognizer.state {
+        case .began:
+            isTouchingY = true
+            previousPoint.y = recognizer.translation(in: self.view).y
+        case .changed:
+            if (abs(previousPoint.y - recognizer.translation(in: self.view).y) <= 30) {
+                return
+            } else if previousPoint.y < recognizer.translation(in: self.view).y {
+                print("up")
+                self.currentDirection = "up"
+                self.drawLine(to: self.currentDirection)
+            } else {
+                print("down")
+                self.currentDirection = "down"
+                self.drawLine(to: self.currentDirection)
+            }
+        case .ended:
+            isTouchingY = false
             recognizer.setTranslation(CGPoint.zero, in: self.view)
         default:
             return
@@ -77,26 +102,35 @@ class GameSKScene: SKScene {
     
     func drawLine(to direction: String){
         let path = UIBezierPath()
+        
         path.move(to: previousPoint)
+        path.addLine(to: CGPoint(x: previousPoint.x+30, y: previousPoint.y))
+        /*
         if direction == "right"{
             path.addLine(to: CGPoint(x: previousPoint.x+30, y: previousPoint.y))
+            previousPoint.x += 30
         } else if direction == "left" {
             path.addLine(to: CGPoint(x: previousPoint.x-30, y: previousPoint.y))
+            previousPoint.x -= 30
         } else if direction == "up" {
             path.addLine(to: CGPoint(x: previousPoint.x, y: previousPoint.y+30))
+            previousPoint.y += 30
         } else if direction == "down" {
             path.addLine(to: CGPoint(x: previousPoint.x, y: previousPoint.y-30))
+            previousPoint.y -= 30
         }
+ */
         
         let shapeNode = SKShapeNode(path: path.cgPath)
-        shapeNode.fillColor = UIColor.white
-        shapeNode.lineWidth = 2
+//        shapeNode.fillColor = .clear
+        shapeNode.strokeColor = UIColor.green
+        shapeNode.lineWidth = 1
         
         self.addChild(shapeNode)
-        previousPoint.x += 30
     }
     
     override func update(_ currentTime: TimeInterval) {
+        /*
         //Desenhar infinitamente a linha
         if isTouchingX {
             self.drawLine(to: self.currentDirection)
@@ -104,5 +138,6 @@ class GameSKScene: SKScene {
         if isTouchingY {
             self.drawLine(to: self.currentDirection)
         }
+ */
     }
 }
