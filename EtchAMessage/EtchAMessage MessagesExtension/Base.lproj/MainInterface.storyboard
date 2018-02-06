@@ -88,24 +88,30 @@
             <objects>
                 <viewController storyboardIdentifier="expanded" id="zys-3z-P94" customClass="GameViewController" customModule="EtchAMessage_MessagesExtension" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hFv-r3-Okv">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="528"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <skView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qLK-lb-Hdy">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <skView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qLK-lb-Hdy">
+                                <rect key="frame" x="0.0" y="10" width="320" height="508"/>
                             </skView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="qLK-lb-Hdy" firstAttribute="height" secondItem="zpa-Xg-98k" secondAttribute="height" id="UJP-cG-fSh"/>
+                            <constraint firstItem="qLK-lb-Hdy" firstAttribute="width" secondItem="zpa-Xg-98k" secondAttribute="width" id="YEV-Bc-WBl"/>
+                            <constraint firstItem="qLK-lb-Hdy" firstAttribute="centerX" secondItem="hFv-r3-Okv" secondAttribute="centerX" id="e66-tj-uzv"/>
+                            <constraint firstItem="qLK-lb-Hdy" firstAttribute="centerY" secondItem="hFv-r3-Okv" secondAttribute="centerY" id="uI7-Jc-wgp"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="zpa-Xg-98k"/>
                     </view>
+                    <size key="freeformSize" width="320" height="528"/>
                     <connections>
                         <outlet property="sceneView" destination="qLK-lb-Hdy" id="vtC-Kk-JW9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NZl-zK-Sps" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1020" y="51.724137931034484"/>
+            <point key="canvasLocation" x="1058" y="132"/>
         </scene>
     </scenes>
 </document>
