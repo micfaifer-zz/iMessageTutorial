@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EtchAMessage MessagesExtension/DrawViewController.swift"
-            timestampString = "539563986.624917"
+            timestampString = "539647721.001"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "67"
             endingLineNumber = "67"
-            landmarkName = "drawLine()"
+            landmarkName = "handlePanY(recognizer:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
