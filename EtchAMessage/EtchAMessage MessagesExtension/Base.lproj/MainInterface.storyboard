@@ -40,7 +40,7 @@
         <!--Draw View Controller-->
         <scene sceneID="OTQ-7L-EdV">
             <objects>
-                <viewController storyboardIdentifier="expanded" id="jvw-Hh-I7R" customClass="DrawViewController" customModule="EtchAMessage_MessagesExtension" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="d" id="jvw-Hh-I7R" customClass="DrawViewController" customModule="EtchAMessage_MessagesExtension" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XVY-7a-rn3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="528"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -82,6 +82,30 @@
                 </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="372.80000000000001" y="131.33433283358323"/>
+        </scene>
+        <!--Game View Controller-->
+        <scene sceneID="eR6-ZB-yJK">
+            <objects>
+                <viewController storyboardIdentifier="expanded" id="zys-3z-P94" customClass="GameViewController" customModule="EtchAMessage_MessagesExtension" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hFv-r3-Okv">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <skView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qLK-lb-Hdy">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </skView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="zpa-Xg-98k"/>
+                    </view>
+                    <connections>
+                        <outlet property="sceneView" destination="qLK-lb-Hdy" id="vtC-Kk-JW9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NZl-zK-Sps" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1020" y="51.724137931034484"/>
         </scene>
     </scenes>
 </document>

@@ -36,13 +36,17 @@ class DrawViewController: UIViewController {
                 return
             } else if first.x < recognizer.translation(in: self.view).x {
                 print("dir")
-                drawLine()
+                OperationQueue.main.addOperation({
+                    self.drawLine()
+                })
+                
             } else {
                 //TODO: - Desenhar a linha para a ESQUERDA
                 print("esq")
             }
         case .ended:
-            isTouching = true
+            OperationQueue.main.cancelAllOperations()
+            isTouching = false
 //           x previousPath.x = previousPath.x+recognizer.translation(in: self.view).x
             recognizer.setTranslation(CGPoint.zero, in: self.view)
         default:
@@ -55,18 +59,22 @@ class DrawViewController: UIViewController {
     func drawLine(){
         
         repeat {
-            let path = UIBezierPath()
-            path.move(to: previousPath)
-            path.addLine(to: CGPoint(x: previousPath.x+30, y: previousPath.y))
-            let layer = CAShapeLayer()
-            layer.strokeColor = UIColor.black.cgColor
-            layer.lineWidth = 2
-            layer.path = path.cgPath
-            self.view.layer.addSublayer(layer)
-            
-            previousPath.x += 30
-        } while isTouching
-        //TODO: - Desenhar a linha para a DIREITA
+            if self.isTouching {
+                print("teste")
+                let path = UIBezierPath()
+                path.move(to: previousPath)
+                path.addLine(to: CGPoint(x: previousPath.x+30, y: previousPath.y))
+                let layer = CAShapeLayer()
+                layer.strokeColor = UIColor.black.cgColor
+                layer.lineWidth = 2
+                layer.path = path.cgPath
+                self.view.layer.addSublayer(layer)
+                
+                previousPath.x += 30
+            } else {
+                return
+            }
+        } while self.isTouching
         
     }
 

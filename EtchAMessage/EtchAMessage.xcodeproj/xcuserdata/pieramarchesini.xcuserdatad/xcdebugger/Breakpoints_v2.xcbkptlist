@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EtchAMessage MessagesExtension/MessagesViewController.swift"
-            timestampString = "539553782.871509"
+            filePath = "EtchAMessage MessagesExtension/DrawViewController.swift"
+            timestampString = "539575269.150357"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
-            landmarkName = "instantiateExpandedViewController()"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "handlePanX(recognizer:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EtchAMessage MessagesExtension/MessagesViewController.swift"
-            timestampString = "539553822.0739729"
+            filePath = "EtchAMessage MessagesExtension/DrawViewController.swift"
+            timestampString = "539575269.150493"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "willTransition(to:)"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "handlePanX(recognizer:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EtchAMessage MessagesExtension/DrawViewController.swift"
+            timestampString = "539575269.150609"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "handlePanX(recognizer:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
