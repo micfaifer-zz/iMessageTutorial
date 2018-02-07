@@ -119,6 +119,7 @@ class MessagesViewController: MSMessagesAppViewController, SendMessage {
     
     func instantiateExpandedViewController() -> UIViewController {
         if let expandedViewController = storyboard?.instantiateViewController(withIdentifier: expandedStoryboardIdentifier) {
+            expandedViewController.becomeFirstResponder()
             return expandedViewController
         } else { return UIViewController() }
     }

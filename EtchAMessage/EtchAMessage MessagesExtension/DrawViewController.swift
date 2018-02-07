@@ -24,26 +24,34 @@ class DrawViewController: UIViewController {
     
     public var delegate: SendMessage?
     
+    //ViewController Variables|Constants
+    override var canBecomeFirstResponder: Bool{
+        return true
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+//        self.becomeFirstResponder()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         previousPoint.y = self.magicScreen.frame.size.height+48
 //        self.magicScreen.becomeFirstResponder()
-        self.becomeFirstResponder()
-    }
-    
-    // We are willing to become first responder to get shake motion
-    override var canBecomeFirstResponder: Bool {
-        get {
-            return true
-        }
     }
     
     //MARK: - Shake Methods
-    // We are willing to become first responder to get shake motion
     override func becomeFirstResponder() -> Bool {
         return true
     }
     
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            print("Shaken, not stirred")
+        }
+    }
+    
+    /*
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             print("Why are you shaking me?")
@@ -56,7 +64,7 @@ class DrawViewController: UIViewController {
             print("You shook me, now what")
         }
     }
-    
+    */
     
     @IBAction func sendButtonPressed(_ sender: Any) {
         let newImage = UIImage(view: self.magicScreen)
