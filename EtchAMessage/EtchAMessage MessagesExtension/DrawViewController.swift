@@ -10,7 +10,6 @@ import UIKit
 
 protocol SendMessage {
     func didSendDraw(on image: UIImage)
-    func didSendAlgumaCoisa(text: String)
 }
 
 class DrawViewController: UIViewController {
@@ -27,14 +26,16 @@ class DrawViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.becomeFirstResponder()
-        // Do any additional setup after loading the view.
         previousPoint.y = self.magicScreen.frame.size.height+48
+//        self.magicScreen.becomeFirstResponder()
+        self.becomeFirstResponder()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    // We are willing to become first responder to get shake motion
+    override var canBecomeFirstResponder: Bool {
+        get {
+            return true
+        }
     }
     
     //MARK: - Shake Methods
@@ -57,7 +58,12 @@ class DrawViewController: UIViewController {
     }
     
     
+    @IBAction func sendButtonPressed(_ sender: Any) {
+        let newImage = UIImage(view: self.magicScreen)
+        self.delegate?.didSendDraw(on: newImage)
+    }
     
+    //MARK: - Gesture Recognizers
     @IBAction func handlePanX(recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
         case .began:
@@ -117,15 +123,15 @@ class DrawViewController: UIViewController {
             if previousPoint.x >= self.magicScreen.frame.size.width-3 {
                 return
             }
-            path.addLine(to: CGPoint(x: previousPoint.x+5, y: previousPoint.y))
-            previousPoint.x += 5
+            path.addLine(to: CGPoint(x: previousPoint.x+2, y: previousPoint.y))
+            previousPoint.x += 2
         } else if currentDirection == "left" {
             //Mínimo da tela
             if previousPoint.x <= 0 {
                 return
             }
-            path.addLine(to: CGPoint(x: previousPoint.x-5, y: previousPoint.y))
-            previousPoint.x -= 5
+            path.addLine(to: CGPoint(x: previousPoint.x-2, y: previousPoint.y))
+            previousPoint.x -= 2
         }
         let layer = CAShapeLayer()
         layer.strokeColor = UIColor.black.cgColor
@@ -145,15 +151,15 @@ class DrawViewController: UIViewController {
             if previousPoint.y >= self.magicScreen.frame.size.height-2 {
                 return
             }
-            path.addLine(to: CGPoint(x: previousPoint.x, y: previousPoint.y+5))
-            previousPoint.y += 5
+            path.addLine(to: CGPoint(x: previousPoint.x, y: previousPoint.y+2))
+            previousPoint.y += 2
         } else if currentDirection == "down" {
             //Mínimo da tela
             if previousPoint.y <= 2 {
                 return
             }
-            path.addLine(to: CGPoint(x: previousPoint.x, y: previousPoint.y-5))
-            previousPoint.y -= 5
+            path.addLine(to: CGPoint(x: previousPoint.x, y: previousPoint.y-2))
+            previousPoint.y -= 2
         }
         let layer = CAShapeLayer()
         layer.strokeColor = UIColor.black.cgColor
@@ -167,7 +173,7 @@ class DrawViewController: UIViewController {
     //MARK: - Timer
     func startTimerX(){
         if self.timerX == nil {
-            self.timerX = Timer.scheduledTimer(timeInterval: 0.014, target: self, selector: #selector(DrawViewController.drawXLine), userInfo: nil, repeats: true)
+            self.timerX = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(DrawViewController.drawXLine), userInfo: nil, repeats: true)
             self.timerX?.fire()
         }
     }
@@ -179,7 +185,7 @@ class DrawViewController: UIViewController {
     
     func startTimerY(){
         if self.timerY == nil {
-            self.timerY = Timer.scheduledTimer(timeInterval: 0.014, target: self, selector: #selector(DrawViewController.drawYLine), userInfo: nil, repeats: true)
+            self.timerY = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(DrawViewController.drawYLine), userInfo: nil, repeats: true)
             self.timerY?.fire()
         }
     }
@@ -189,9 +195,6 @@ class DrawViewController: UIViewController {
         self.timerY = nil
     }
     
-    @IBAction func sendButtonPressed(_ sender: Any) {
-        let newImage = UIImage(view: self.magicScreen)
-       self.delegate?.didSendDraw(on: newImage)
-    }
+    
     
 }

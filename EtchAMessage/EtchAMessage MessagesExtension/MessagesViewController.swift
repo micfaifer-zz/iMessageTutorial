@@ -24,10 +24,7 @@ class MessagesViewController: MSMessagesAppViewController, SendMessage {
     // MARK: - Delegates
     func didSendDraw(on image: UIImage) {
         self.composeMessage(image: image)
-    }
-    
-    func didSendAlgumaCoisa(text: String) {
-        print(text)
+        requestPresentationStyle(.compact)
     }
     
     func composeMessage(image: UIImage) {
@@ -35,7 +32,7 @@ class MessagesViewController: MSMessagesAppViewController, SendMessage {
         
         let layout = MSMessageTemplateLayout()
         layout.image = image
-        layout.imageTitle = "Etch a Message"
+        layout.caption = "Etch a Message"
         
         let message = MSMessage()
         message.layout = layout
@@ -99,6 +96,11 @@ class MessagesViewController: MSMessagesAppViewController, SendMessage {
             controller = instantiateCompactViewController()
         } else {
             controller = instantiateExpandedViewController()
+            
+            if let gameVC = controller as? DrawViewController {
+                gameVC.delegate = self
+            }
+            
         }
         
         addChildViewController(controller)
