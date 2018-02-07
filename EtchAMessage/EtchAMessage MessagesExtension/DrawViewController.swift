@@ -22,49 +22,13 @@ class DrawViewController: UIViewController {
     var timerX: Timer?
     var timerY: Timer?
     
+    //MARK: - Deal with iMessage
     public var delegate: SendMessage?
-    
-    //ViewController Variables|Constants
-    override var canBecomeFirstResponder: Bool{
-        return true
-    }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-//        self.becomeFirstResponder()
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         previousPoint.y = self.magicScreen.frame.size.height+48
-//        self.magicScreen.becomeFirstResponder()
     }
-    
-    //MARK: - Shake Methods
-    override func becomeFirstResponder() -> Bool {
-        return true
-    }
-    
-    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
-        if motion == .motionShake {
-            print("Shaken, not stirred")
-        }
-    }
-    
-    /*
-    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
-        if motion == .motionShake {
-            print("Why are you shaking me?")
-            //Apaga o desenho
-            for view in self.magicScreen.subviews {
-                view.removeFromSuperview()
-            }
-        }
-        if event?.subtype == UIEventSubtype.motionShake {
-            print("You shook me, now what")
-        }
-    }
-    */
     
     @IBAction func sendButtonPressed(_ sender: Any) {
         let newImage = UIImage(view: self.magicScreen)
@@ -202,7 +166,5 @@ class DrawViewController: UIViewController {
         self.timerY?.invalidate()
         self.timerY = nil
     }
-    
-    
     
 }
