@@ -30,6 +30,7 @@ class DrawViewController: UIViewController {
         previousPoint.y = self.magicScreen.frame.size.height+48
     }
     
+    //MARK: - Action
     @IBAction func sendButtonPressed(_ sender: Any) {
         let newImage = UIImage(view: self.magicScreen)
         self.delegate?.didSendDraw(on: newImage)

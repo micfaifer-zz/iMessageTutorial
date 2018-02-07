@@ -19,6 +19,11 @@ class MessagesViewController: MSMessagesAppViewController, SendMessage {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+
+    //MARK: - Action
+    @IBAction func startButtonPressed(_ sender: Any) {
+        requestPresentationStyle(.expanded)
+    }
     
     // MARK: - Delegates
     func didSendDraw(on image: UIImage) {
@@ -26,6 +31,7 @@ class MessagesViewController: MSMessagesAppViewController, SendMessage {
         requestPresentationStyle(.compact)
     }
     
+    // MARK: - Create Message
     func composeMessage(image: UIImage) {
         let conversation = self.conversation
         
@@ -49,11 +55,7 @@ class MessagesViewController: MSMessagesAppViewController, SendMessage {
             presentViewController(conversation: aConversation, presentationStyle: presentationStyle)
         }
     }
-    
-    //MARK: - Action
-    @IBAction func startButtonPressed(_ sender: Any) {
-        requestPresentationStyle(.expanded)
-    }
+
     
     //MARK: - Draw ViewController
     func presentViewController(conversation: MSConversation, presentationStyle: MSMessagesAppPresentationStyle){
@@ -79,7 +81,6 @@ class MessagesViewController: MSMessagesAppViewController, SendMessage {
     
     func instantiateExpandedViewController() -> UIViewController {
         if let expandedViewController = storyboard?.instantiateViewController(withIdentifier: expandedStoryboardIdentifier) {
-            expandedViewController.becomeFirstResponder()
             return expandedViewController
         } else { return UIViewController() }
     }
