@@ -9,18 +9,39 @@
 import UIKit
 import Messages
 
-class MessagesViewController: MSMessagesAppViewController {
+class MessagesViewController: MSMessagesAppViewController, SendMessage {
     
     var conversation: MSConversation?
     let compactStoryboardIdentifier = "compact"
     let expandedStoryboardIdentifier = "expanded"
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
     
+    // MARK: - Delegates
+    func didSendDraw(on image: UIImage) {
+        self.composeMessage(image: image)
+    }
     
+    func didSendAlgumaCoisa(text: String) {
+        print(text)
+    }
+    
+    func composeMessage(image: UIImage) {
+        let conversation = self.conversation
+        
+        let layout = MSMessageTemplateLayout()
+        layout.image = image
+        layout.imageTitle = "Etch a Message"
+        
+        let message = MSMessage()
+        message.layout = layout
+        
+        conversation?.insert(message, completionHandler: nil)
+    }
     
     // MARK: - Conversation Handling
     override func willBecomeActive(with conversation: MSConversation) {

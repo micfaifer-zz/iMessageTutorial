@@ -8,19 +8,28 @@
 
 import UIKit
 
+protocol SendMessage {
+    func didSendDraw(on image: UIImage)
+    func didSendAlgumaCoisa(text: String)
+}
+
 class DrawViewController: UIViewController {
     
-    var previousPoint = CGPoint(x: 0, y: 100)
+    @IBOutlet weak var magicScreen: UIView!
+    
+    var previousPoint = CGPoint(x: 0, y: 0)
     var currentDirection = ""
     var beganPoint: CGPoint?
-    
     var timerX: Timer?
     var timerY: Timer?
+    
+    public var delegate: SendMessage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        previousPoint.y = self.magicScreen.frame.size.height+48
     }
     
     override func didReceiveMemoryWarning() {
@@ -83,9 +92,17 @@ class DrawViewController: UIViewController {
         let path = UIBezierPath()
         path.move(to: previousPoint)
         if currentDirection == "right"{
+            //Máximo da tela
+            if previousPoint.x >= self.magicScreen.frame.size.width-3 {
+                return
+            }
             path.addLine(to: CGPoint(x: previousPoint.x+5, y: previousPoint.y))
             previousPoint.x += 5
         } else if currentDirection == "left" {
+            //Mínimo da tela
+            if previousPoint.x <= 0 {
+                return
+            }
             path.addLine(to: CGPoint(x: previousPoint.x-5, y: previousPoint.y))
             previousPoint.x -= 5
         }
@@ -94,9 +111,8 @@ class DrawViewController: UIViewController {
         layer.lineWidth = 2
         layer.path = path.cgPath
         DispatchQueue.main.async {
-            self.view.layer.addSublayer(layer)
+            self.magicScreen.layer.addSublayer(layer)
         }
-        print(previousPoint)
     }
     
     @objc
@@ -104,9 +120,17 @@ class DrawViewController: UIViewController {
         let path = UIBezierPath()
         path.move(to: previousPoint)
         if currentDirection == "up"{
+            //Máximo da tela
+            if previousPoint.y >= self.magicScreen.frame.size.height-2 {
+                return
+            }
             path.addLine(to: CGPoint(x: previousPoint.x, y: previousPoint.y+5))
             previousPoint.y += 5
         } else if currentDirection == "down" {
+            //Mínimo da tela
+            if previousPoint.y <= 2 {
+                return
+            }
             path.addLine(to: CGPoint(x: previousPoint.x, y: previousPoint.y-5))
             previousPoint.y -= 5
         }
@@ -115,9 +139,8 @@ class DrawViewController: UIViewController {
         layer.lineWidth = 2
         layer.path = path.cgPath
         DispatchQueue.main.async {
-            self.view.layer.addSublayer(layer)
+            self.magicScreen.layer.addSublayer(layer)
         }
-        print(previousPoint)
     }
     
     //MARK: - Timer
@@ -144,4 +167,10 @@ class DrawViewController: UIViewController {
         self.timerY?.invalidate()
         self.timerY = nil
     }
+    
+    @IBAction func sendButtonPressed(_ sender: Any) {
+        let newImage = UIImage(view: self.magicScreen)
+       self.delegate?.didSendDraw(on: newImage)
+    }
+    
 }
