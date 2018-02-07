@@ -357,7 +357,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8Q8A65W24Q;
+				DEVELOPMENT_TEAM = JQQC38YQ4S;
 				INFOPLIST_FILE = "EtchAMessage MessagesExtension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = MackMobile.EtchAMessage.MessagesExtension;
@@ -373,7 +373,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8Q8A65W24Q;
+				DEVELOPMENT_TEAM = JQQC38YQ4S;
 				INFOPLIST_FILE = "EtchAMessage MessagesExtension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = MackMobile.EtchAMessage.MessagesExtension;
@@ -390,7 +390,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8Q8A65W24Q;
+				DEVELOPMENT_TEAM = JQQC38YQ4S;
 				INFOPLIST_FILE = EtchAMessage/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = MackMobile.EtchAMessage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -405,7 +405,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8Q8A65W24Q;
+				DEVELOPMENT_TEAM = JQQC38YQ4S;
 				INFOPLIST_FILE = EtchAMessage/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = MackMobile.EtchAMessage;
 				PRODUCT_NAME = "$(TARGET_NAME)";

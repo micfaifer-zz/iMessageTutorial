@@ -27,7 +27,7 @@ class DrawViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.becomeFirstResponder()
         // Do any additional setup after loading the view.
         previousPoint.y = self.magicScreen.frame.size.height+48
     }
@@ -36,6 +36,27 @@ class DrawViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    //MARK: - Shake Methods
+    // We are willing to become first responder to get shake motion
+    override func becomeFirstResponder() -> Bool {
+        return true
+    }
+    
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            print("Why are you shaking me?")
+            //Apaga o desenho
+            for view in self.magicScreen.subviews {
+                view.removeFromSuperview()
+            }
+        }
+        if event?.subtype == UIEventSubtype.motionShake {
+            print("You shook me, now what")
+        }
+    }
+    
+    
     
     @IBAction func handlePanX(recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
